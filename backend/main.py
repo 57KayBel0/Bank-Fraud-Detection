@@ -10,6 +10,9 @@ from database.models import Base
 
 # Create database tables if they don't exist
 Base.metadata.create_all(bind=engine)
+print("Creating database tables...")
+Base.metadata.create_all(bind=engine)
+print("Database tables checked/created.")
 
 app = FastAPI(
     title="Bank Fraud Detection API",
