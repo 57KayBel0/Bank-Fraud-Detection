@@ -1,23 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.dashboard import router as dashboard_router
-from api.prediction import router as prediction_router
-from api.charts import router as charts_router
-
 from database.database import engine
 from database.models import Base
-
-# Create database tables if they don't exist
-Base.metadata.create_all(bind=engine)
-print("Creating database tables...")
-Base.metadata.create_all(bind=engine)
-print("Database tables checked/created.")
 
 app = FastAPI(
     title="Bank Fraud Detection API",
     version="1.0.0",
 )
+
+@app.on_event("startup")
+def startup():
+    print("=== STARTUP: Creating database tables ===")
+    Base.metadata.create_all(bind=engine)
+    print("=== STARTUP: Database tables created ===")
 
 app.add_middleware(
     CORSMiddleware,
