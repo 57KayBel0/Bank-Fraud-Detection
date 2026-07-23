@@ -23,12 +23,14 @@ def startup():
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",   # Local development
+        "https://bank-fraud-detection-five.vercel.app",   # Your deployed frontend
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 app.include_router(prediction_router)
 app.include_router(dashboard_router)
 app.include_router(charts_router)
