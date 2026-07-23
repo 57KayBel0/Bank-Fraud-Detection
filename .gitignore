@@ -1,0 +1,18 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# React
+frontend/node_modules/
+frontend/dist/
+
+# Dataset
+backend/data/raw/Fraud.csv
+
+# Environment
+.env
+backend/.env
+
+# Database
+*.db
