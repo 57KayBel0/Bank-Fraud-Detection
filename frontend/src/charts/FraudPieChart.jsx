@@ -1,71 +1,96 @@
 import { useState, useEffect } from "react";
 
+import api from "../services/api";
+
 import {
   PieChart,
   Pie,
   Cell,
   Tooltip,
+  Legend,
   ResponsiveContainer,
 } from "recharts";
 
-import api from "../services/api";
-
-const COLORS = ["#22c55e", "#ef4444"];
+const COLORS = [
+  "#22c55e",
+  "#ef4444",
+];
 
 export default function FraudPieChart() {
-  const [data, setData] = useState([
-    { name: "Legitimate", value: 0 },
-    { name: "Fraud", value: 0 },
-  ]);
+
+  const [data, setData] = useState([]);
 
   useEffect(() => {
+
     async function loadChart() {
+
       try {
+
         const response = await api.get("/charts");
-        
+
         setData(response.data.pie);
-        
+
       } catch (error) {
-        console.error("Pie Chart Error:", error);
+
+        console.error(error);
+
       }
+
     }
 
     loadChart();
+
   }, []);
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6">
 
-      <h2 className="text-xl font-bold mb-4">
-        Fraud Distribution
-      </h2>
+    <div className="bg-white rounded-3xl shadow-xl p-6">
 
-      <ResponsiveContainer width="100%" height={300}>
+      <div className="mb-6">
+
+        <h2 className="text-2xl font-bold">
+          🥧 Fraud Distribution
+        </h2>
+
+        <p className="text-slate-500">
+          Legitimate vs Fraudulent Transactions
+        </p>
+
+      </div>
+
+      <ResponsiveContainer width="100%" height={320}>
 
         <PieChart>
 
           <Pie
             data={data}
-            cx="50%"
-            cy="50%"
-            outerRadius={90}
             dataKey="value"
+            nameKey="name"
+            outerRadius={110}
+            innerRadius={55}
             label
           >
+
             {data.map((entry, index) => (
+
               <Cell
                 key={index}
                 fill={COLORS[index]}
               />
+
             ))}
+
           </Pie>
 
           <Tooltip />
+
+          <Legend />
 
         </PieChart>
 
       </ResponsiveContainer>
 
     </div>
+
   );
 }

@@ -1,70 +1,76 @@
 import { useState, useEffect } from "react";
-
 import api from "../services/api";
 
 import {
+  ResponsiveContainer,
   LineChart,
   Line,
- XAxis,
+  XAxis,
   YAxis,
   Tooltip,
   CartesianGrid,
-  ResponsiveContainer,
 } from "recharts";
 
 export default function FraudLineChart() {
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
-
     async function loadTrend() {
-
       try {
-
-        const response = await api.get("/charts");
-
-        setData(response.data.line);
-
+        const response = await api.get("/fraud-trend");
+        setData(response.data);
       } catch (error) {
-
         console.error(error);
-
       }
-
     }
 
     loadTrend();
-
   }, []);
 
   return (
+    <div className="bg-white rounded-3xl shadow-xl p-6">
 
-    <div className="bg-white rounded-2xl shadow-lg p-6">
+      <div className="mb-6">
 
-      <h2 className="text-xl font-bold mb-4">
+        <h2 className="text-2xl font-bold">
+          📈 Fraud Trend
+        </h2>
 
-        Fraud Trend
+        <p className="text-slate-500">
+          Daily fraud detections
+        </p>
 
-      </h2>
+      </div>
 
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={320}>
 
         <LineChart data={data}>
 
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="4 4" />
 
           <XAxis dataKey="day" />
 
           <YAxis />
 
-          <Tooltip />
+          <Tooltip
+            contentStyle={{
+              borderRadius: 12,
+              border: "none",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+            }}
+          />
 
           <Line
             type="monotone"
             dataKey="fraud"
             stroke="#ef4444"
-            strokeWidth={3}
+            strokeWidth={4}
+            dot={{
+              r: 5,
+            }}
+            activeDot={{
+              r: 8,
+            }}
           />
 
         </LineChart>
@@ -72,7 +78,5 @@ export default function FraudLineChart() {
       </ResponsiveContainer>
 
     </div>
-
   );
-
 }

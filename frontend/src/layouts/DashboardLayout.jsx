@@ -3,19 +3,31 @@ import Sidebar from "../components/Sidebar";
 
 export default function DashboardLayout({ children }) {
   return (
-    <div className="flex bg-slate-100 min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50">
 
-      <Sidebar />
+      <div className="flex min-h-screen">
 
-      <div className="flex-1 flex flex-col">
+        {/* Sidebar */}
 
-        <Navbar />
+        <aside className="hidden lg:block">
 
-        <main className="p-8">
+          <Sidebar />
 
-          {children}
+        </aside>
 
-        </main>
+        {/* Main Content */}
+
+        <div className="flex-1 flex flex-col">
+
+          <Navbar />
+
+          <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+
+            {children}
+
+          </main>
+
+        </div>
 
       </div>
 

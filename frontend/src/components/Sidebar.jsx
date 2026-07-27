@@ -4,6 +4,9 @@ import {
   FaHistory,
   FaCog,
   FaUniversity,
+  FaRobot,
+  FaDatabase,
+  FaChevronRight,
 } from "react-icons/fa";
 
 const menu = [
@@ -27,13 +30,13 @@ const menu = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-72 min-h-screen bg-slate-950 text-white shadow-2xl">
+    <aside className="w-72 min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white shadow-2xl flex flex-col">
 
       {/* Logo */}
 
-      <div className="h-20 flex items-center gap-3 px-8 border-b border-slate-800">
+      <div className="h-24 flex items-center gap-4 px-8 border-b border-slate-700">
 
-        <div className="w-12 h-12 rounded-xl bg-cyan-500 flex items-center justify-center text-xl">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-2xl shadow-lg">
 
           <FaUniversity />
 
@@ -41,11 +44,11 @@ export default function Sidebar() {
 
         <div>
 
-          <h1 className="font-bold text-lg">
+          <h1 className="font-bold text-xl">
             AI Bank
           </h1>
 
-          <p className="text-slate-400 text-sm">
+          <p className="text-slate-400">
             Fraud Detection
           </p>
 
@@ -53,41 +56,100 @@ export default function Sidebar() {
 
       </div>
 
-      {/* Menu */}
+      {/* Navigation */}
 
-      <nav className="mt-8 px-4">
+      <nav className="flex-1 mt-8 px-5">
 
-        {menu.map((item) => (
+        {menu.map((item, index) => (
+
           <button
             key={item.title}
-            className="
+            className={`
               w-full
               flex
               items-center
-              gap-4
+              justify-between
               px-5
               py-4
+              rounded-2xl
               mb-3
-              rounded-xl
-              text-slate-300
-              hover:bg-cyan-500
-              hover:text-white
               transition-all
               duration-300
-            "
+              ${
+                index === 0
+                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg"
+                  : "hover:bg-slate-700"
+              }
+            `}
           >
-            <span className="text-lg">
 
-              {item.icon}
+            <div className="flex items-center gap-4">
 
-            </span>
+              <span className="text-xl">
 
-            {item.title}
+                {item.icon}
+
+              </span>
+
+              <span>
+
+                {item.title}
+
+              </span>
+
+            </div>
+
+            <FaChevronRight className="opacity-60" />
 
           </button>
+
         ))}
 
       </nav>
+
+      {/* AI Status */}
+
+      <div className="m-5 rounded-3xl bg-slate-800 p-5 border border-slate-700">
+
+        <div className="flex items-center gap-3 mb-4">
+
+          <FaRobot className="text-cyan-400 text-2xl" />
+
+          <div>
+
+            <h3 className="font-bold">
+              AI Engine
+            </h3>
+
+            <p className="text-sm text-slate-400">
+              XGBoost Model
+            </p>
+
+          </div>
+
+        </div>
+
+        <div className="flex items-center gap-3 mb-3">
+
+          <FaDatabase className="text-green-400" />
+
+          <span className="text-sm">
+            PostgreSQL Connected
+          </span>
+
+        </div>
+
+        <div className="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+
+          <div className="w-full h-full bg-gradient-to-r from-green-400 to-cyan-400" />
+
+        </div>
+
+        <p className="text-xs mt-2 text-slate-400">
+          AI Status: Operational
+        </p>
+
+      </div>
 
     </aside>
   );

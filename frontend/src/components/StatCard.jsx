@@ -3,56 +3,66 @@ import { motion } from "framer-motion";
 export default function StatCard({
   title,
   value,
+  subtitle,
   icon,
   color,
 }) {
   return (
     <motion.div
       whileHover={{
-        y: -6,
-        scale: 1.02,
+        y: -8,
+        scale: 1.03,
       }}
-      className="
-        bg-white
-        rounded-2xl
-        shadow-lg
+      transition={{
+        duration: 0.25,
+      }}
+      className={`
+        relative
+        overflow-hidden
+        rounded-3xl
+        bg-gradient-to-br
+        ${color}
         p-6
-        flex
-        justify-between
-        items-center
-      "
+        shadow-xl
+        text-white
+      `}
     >
-      <div>
+      <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/10" />
 
-        <p className="text-gray-500 text-sm">
+      <div className="relative flex justify-between">
 
-          {title}
+        <div>
 
-        </p>
+          <p className="uppercase tracking-wide text-sm opacity-80">
+            {title}
+          </p>
 
-        <h2 className="text-3xl font-bold mt-2">
+          <h2 className="text-4xl font-bold mt-3">
+            {value}
+          </h2>
 
-          {value}
+          <p className="mt-4 opacity-80">
+            {subtitle}
+          </p>
 
-        </h2>
+        </div>
+
+        <div className="
+            w-16
+            h-16
+            rounded-2xl
+            bg-white/20
+            backdrop-blur-lg
+            flex
+            items-center
+            justify-center
+            text-3xl
+        ">
+          {icon}
+        </div>
 
       </div>
 
-      <div
-        className={`
-          w-14
-          h-14
-          rounded-xl
-          flex
-          items-center
-          justify-center
-          text-white
-          text-2xl
-          ${color}
-        `}
-      >
-        {icon}
-      </div>
     </motion.div>
   );
 }
