@@ -35,13 +35,9 @@ export default function PredictionForm({ onPrediction }) {
       setResult(response.data);
 
       if (response.data.prediction === "Fraud") {
-
         toast.error("🚨 Fraudulent transaction detected!");
-
       } else {
-
         toast.success("✅ Legitimate transaction");
-
       }
 
       onPrediction({
@@ -50,16 +46,10 @@ export default function PredictionForm({ onPrediction }) {
         prediction: response.data.prediction,
         probability: `${Math.round(response.data.probability * 100)}%`,
       });
+
     } catch (error) {
       console.error(error);
       toast.error("Prediction failed. Please try again.");
-      toast.success("Prediction completed successfully!");
-      toast(
-          "🚨 Fraud detected!",
-          {
-              icon: "⚠️",
-          }
-      );
     } finally {
       setLoading(false);
     }

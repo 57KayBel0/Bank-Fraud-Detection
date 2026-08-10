@@ -8,6 +8,10 @@ from api.charts import router as charts_router
 from database.database import engine
 from database.models import Base
 
+from api.analytics import router as analytics_router
+from api.alerts import router as alerts_router
+from api.model import router as model_router
+
 app = FastAPI(
     title="Bank Fraud Detection API",
     version="1.0.0",
@@ -34,6 +38,9 @@ app.add_middleware(
 app.include_router(prediction_router)
 app.include_router(dashboard_router)
 app.include_router(charts_router)
+app.include_router(analytics_router)
+app.include_router(alerts_router)
+app.include_router(model_router)
 
 
 @app.get("/")

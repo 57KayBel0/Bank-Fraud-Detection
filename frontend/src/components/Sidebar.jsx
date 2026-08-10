@@ -1,10 +1,15 @@
+import { NavLink } from "react-router-dom";
+
 import {
   FaChartPie,
-  FaShieldAlt,
-  FaHistory,
-  FaCog,
-  FaUniversity,
+  FaExchangeAlt,
+  FaBell,
+  FaUsers,
+  FaChartLine,
   FaRobot,
+  FaFileAlt,
+  FaCog,
+  FaShieldAlt,
   FaDatabase,
   FaChevronRight,
 } from "react-icons/fa";
@@ -12,18 +17,42 @@ import {
 const menu = [
   {
     title: "Dashboard",
+    path: "/",
     icon: <FaChartPie />,
   },
   {
-    title: "Predictions",
-    icon: <FaShieldAlt />,
+    title: "Transactions",
+    path: "/transactions",
+    icon: <FaExchangeAlt />,
   },
   {
-    title: "History",
-    icon: <FaHistory />,
+    title: "Fraud Alerts",
+    path: "/alerts",
+    icon: <FaBell />,
+  },
+  {
+    title: "Customers",
+    path: "/customers",
+    icon: <FaUsers />,
+  },
+  {
+    title: "Analytics",
+    path: "/analytics",
+    icon: <FaChartLine />,
+  },
+  {
+    title: "AI Model",
+    path: "/models",
+    icon: <FaRobot />,
+  },
+  {
+    title: "Reports",
+    path: "/reports",
+    icon: <FaFileAlt />,
   },
   {
     title: "Settings",
+    path: "/settings",
     icon: <FaCog />,
   },
 ];
@@ -37,21 +66,17 @@ export default function Sidebar() {
       <div className="h-24 flex items-center gap-4 px-8 border-b border-slate-700">
 
         <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-2xl shadow-lg">
-
-          <FaUniversity />
-
+          <FaShieldAlt />
         </div>
 
         <div>
-
           <h1 className="font-bold text-xl">
-            AI Bank
+            BFD Platform
           </h1>
 
           <p className="text-slate-400">
-            Fraud Detection
+            AI Fraud Detection
           </p>
-
         </div>
 
       </div>
@@ -60,48 +85,34 @@ export default function Sidebar() {
 
       <nav className="flex-1 mt-8 px-5">
 
-        {menu.map((item, index) => (
+        {menu.map((item) => (
 
-          <button
+          <NavLink
             key={item.title}
-            className={`
-              w-full
-              flex
-              items-center
-              justify-between
-              px-5
-              py-4
-              rounded-2xl
-              mb-3
-              transition-all
-              duration-300
-              ${
-                index === 0
+            to={item.path}
+            end={item.path === "/"}
+            className={({ isActive }) =>
+              `w-full flex items-center justify-between px-5 py-4 rounded-2xl mb-3 transition-all duration-300 ${
+                isActive
                   ? "bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg"
                   : "hover:bg-slate-700"
-              }
-            `}
+              }`
+            }
           >
 
             <div className="flex items-center gap-4">
 
               <span className="text-xl">
-
                 {item.icon}
-
               </span>
 
-              <span>
-
-                {item.title}
-
-              </span>
+              <span>{item.title}</span>
 
             </div>
 
             <FaChevronRight className="opacity-60" />
 
-          </button>
+          </NavLink>
 
         ))}
 
